@@ -52,9 +52,9 @@ class Jumper:
             self.height = jc.HEIGHT_MAX_MAX
         # Instead of checking jumper's weight, we are checking his BMI.python
         if self.bmi() < jc.BMI_MIN_MIN:
-            self.weight = self.bmi_set_min()
+            self._bmi_set_min()
         elif self.bmi() > jc.BMI_MAX_MAX:
-            self.weight = self.bmi_set_max()
+            self._bmi_set_max()
         if self.inrun < jc.SKILL_MIN:
             self.inrun = jc.SKILL_MIN
         elif self.inrun > jc.SKILL_MAX:
@@ -85,14 +85,14 @@ class Jumper:
     def bmi(self):
         return round(self.weight / (self.height * self.height), 1)
 
-    def bmi_set_min(self):
+    def _bmi_set_min(self):
         # TODO: Fix that naive approach!
         while True:
             self.weight += 1
             if self.bmi() >= jc.BMI_MIN_MIN:
                 break
 
-    def bmi_set_max(self):
+    def _bmi_set_max(self):
         # TODO: Fix that naive approach!
         while True:
             self.weight -= 1
