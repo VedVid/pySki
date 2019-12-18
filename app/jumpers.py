@@ -83,7 +83,7 @@ class Jumper:
             self.form = jc.SKILL_MAX
 
     def bmi(self):
-        return round(self.weight / (self.height * self.height), 1)
+        return round(self.weight / ((self.height * self.height) / 10000), 1)
 
     def _bmi_set_min(self):
         # TODO: Fix that naive approach!
