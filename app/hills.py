@@ -51,64 +51,19 @@ class Hill:
         # Package for choosing city in specific country would help...
         if not self.city:
             self.city = "Unknown city"
-        # Below: check hill size and k-point.
-        if self.size not in hc.SIZES:
+        if self.size not in list(hc.HILLS.keys()):
             self.size = hc.BigHill.name  # Create a big hill by default.
-        if self.size == hc.SmallHill.name:
-            if self.k < hc.SmallHill.k_min:
-                self.k = hc.SmallHill.k_min
-            elif self.k > hc.SmallHill.k_max:
-                self.k = hc.SmallHill.k_max
-            if self.hs < hc.SmallHill.hs_min:
-                self.hs = hc.SmallHill.hs_min
-            elif self.hs > hc.SmallHill.hs_max:
-                self.hs = hc.SmallHill.hs_max
-            # Find out if the hill's hs is smaller or bigger than average hs.
-            self._hs_factor = round(self.hs / hc.SmallHill.hs_average)
-        elif self.size == hc.MediumHill.name:
-            if self.k < hc.MediumHill.k_min:
-                self.k = hc.MediumHill.k_min
-            elif self.k > hc.MediumHill.k_max:
-                self.k = hc.MediumHill.k_max
-            if self.hs < hc.MediumHill.hs_min:
-                self.hs = hc.MediumHill.hs_min
-            elif self.hs > hc.MediumHill.hs_max:
-                self.hs = hc.MediumHill.hs_max
-            # Find out if the hill's hs is smaller or bigger than average hs.
-            self._hs_factor = round(self.hs / hc.MediumHill.hs_average)
-        elif self.size == hc.NormalHill.name:
-            if self.k < hc.NormalHill.k_min:
-                self.k = hc.NormalHill.k_min
-            elif self.k > hc.NormalHill.k_max:
-                self.k = hc.NormalHill.k_max
-            if self.hs < hc.NormalHill.hs_min:
-                self.hs = hc.NormalHill.hs_min
-            elif self.hs > hc.NormalHill.hs_max:
-                self.hs = hc.NormalHill.hs_max
-            # Find out if the hill's hs is smaller or bigger than average hs.
-            self._hs_factor = round(self.hs / hc.NormalHill.hs_average)
-        elif self.size == hc.BigHill.name:
-            if self.k < hc.BigHill.k_min:
-                self.k = hc.BigHill.k_min
-            elif self.k > hc.BigHill.k_max:
-                self.k = hc.BigHill.k_max
-            if self.hs < hc.BigHill.hs_min:
-                self.hs = hc.BigHill.hs_min
-            elif self.hs > hc.BigHill.hs_max:
-                self.hs = hc.BigHill.hs_max
-            # Find out if the hill's hs is smaller or bigger than average hs.
-            self._hs_factor = round(self.hs / hc.BigHill.hs_average)
-        elif self.size == hc.HugeHill.name:
-            if self.k < hc.HugeHill.k_min:
-                self.k = hc.HugeHill.k_min
-            elif self.k > hc.HugeHill.k_max:
-                self.k = hc.HugeHill.k_max
-            if self.hs < hc.HugeHill.hs_min:
-                self.hs = hc.HugeHill.hs_min
-            elif self.hs > hc.HugeHill.hs_max:
-                self.hs = hc.HugeHill.hs_max
-            # Find out if the hill's hs is smaller or bigger than average hs.
-            self._hs_factor = round(self.hs / hc.HugeHill.hs_average)
+        # Below: check hill size and k-point.
+        if self.k < hc.HILLS[self.size].k_min:
+            self.k = hc.HILLS[self.size].k.min
+        elif self.k > hc.HILLS[self.size].k_max:
+            self.k = hc.HILLS[self.size].k_max
+        if self.hs < hc.HILLS[self.size].hs_min:
+            self.hs = hc.HILLS[self.size].hs_min
+        elif self.hs > hc.HILLS[self.size].hs_max:
+            self.hs = hc.HILLS[self.size].hs_max
+        # Find out if the hill's hs is smaller or bigger than average hs.
+        self._hs_factor = round(self.hs / hc.HILLS[self.size].hs_average)
 
     def _country_exists(self):
         for _, v in hc.COUNTRIES:

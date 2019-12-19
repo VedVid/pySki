@@ -87,8 +87,14 @@ class HugeHill:
     hs_average = round((hs_min + hs_max) / 2)
 
 
-# Hill sizes
-SIZES = (SmallHill.name, MediumHill.name, NormalHill.name, BigHill.name, HugeHill.name)
+# HILLS provides easy access to all archetypes by the size name.
+HILLS = {
+    SmallHill.name: SmallHill,
+    MediumHill.name: MediumHill,
+    NormalHill.name: NormalHill,
+    BigHill.name: BigHill,
+    HugeHill.name: HugeHill,
+}
 
 COUNTRIES = dict(country_list.countries_for_language("en"))
 # MAIN_COUNTRIES uses COUNTRIES data, with the same formatting.
