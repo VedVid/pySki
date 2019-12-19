@@ -63,12 +63,13 @@ class Tournament:
         scores = []
         for jumper in jumpers:
             scores.append([jumper, jumper.calculate_length_score()])
-        scores = sorted(scores, key=lambda l: l[1], reverse=True)
+        scores = sorted(scores, key=lambda l: l[1])
         return scores
 
     def simulate_qualifications(self):
         scores = self.simulate_jumpers(self.jumpers)
-        for i in scores:
-            j = i[0]
-            l = i[1]
+        jumps = self.generate_jumps()
+        for i, score in enumerate(scores):
+            j = score[0]
+            l = (score[1], jumps[i])
             self.qualifications[j] = l
