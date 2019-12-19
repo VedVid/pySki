@@ -32,6 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import random
 
 from . import hills_constants as hc
+from . import jump_generation_constants as jgc
 
 
 class Hill:
@@ -103,3 +104,8 @@ class Hill:
             if self.country == v:
                 return True
         return False
+
+    def generate_jumps(self):
+        lmin = round((self.k / 100) * jgc.JUMP_LEN_MIN_PC) * ()
+        lmax = round((self.k / 100) * jgc.JUMP_LEN_MAX_PC)
+        lengths = [l for l in range(lmin, lmax)]

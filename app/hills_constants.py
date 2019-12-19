@@ -33,42 +33,62 @@ import country_list
 
 
 # Data for small hills
-SMALL_NAME = "small"
-SMALL_K_MIN = 20
-SMALL_K_MAX = 44
-SMALL_K_USUAL = 35
-SMALL_HS_MIN = 20
-SMALL_HS_MAX = 49
-# Data for medium hills
-MEDIUM_NAME = "medium"
-MEDIUM_K_MIN = 45
-MEDIUM_K_MAX = 74
-MEDIUM_K_USUAL = 65
-MEDIUM_HS_MIN = 50
-MEDIUM_HS_MAX = 84
-# Data for normal hills
-NORMAL_NAME = "normal"
-NORMAL_K_MIN = 75
-NORMAL_K_MAX = 99
-NORMAL_K_USUAL = 90
-NORMAL_HS_MIN = 85
-NORMAL_HS_MAX = 109
-# Data for big hills
-BIG_NAME = "big"
-BIG_K_MIN = 100
-BIG_K_MAX = 169
-BIG_K_USUAL = 120
-BIG_HS_MIN = 110
-BIG_HS_MAX = 184
-# Data for huge hills
-HUGE_NAME = "huge"
-HUGE_K_MIN = 170
-HUGE_K_MAX = 210
-HUGE_K_USUAL = 200
-HUGE_HS_MIN = 185
-HUGE_HS_MAX = 220
+class SmallHill:
+    name = "small"
+    k_min = 20
+    k_max = 44
+    k_usual = 35
+    hs_min = 20
+    hs_max = 49
+    hs_average = round((hs_min + hs_max) / 2)
 
-SIZES = (SMALL_NAME, MEDIUM_NAME, NORMAL_NAME, BIG_NAME, HUGE_NAME)
+
+# Data for medium hills
+class MediumHill:
+    name = "medium"
+    k_min = 45
+    k_max = 74
+    k_usual = 65
+    hs_min = 50
+    hs_max = 84
+    hs_average = round((hs_min + hs_max) / 2)
+
+
+# Data for normal hills
+class NormalHill:
+    name = "normal"
+    k_min = 75
+    k_max = 99
+    k_usual = 90
+    hs_min = 85
+    hs_max = 109
+    hs_average = round((hs_min + hs_max) / 2)
+
+
+# Data for big hills
+class BigHill:
+    name = "big"
+    k_min = 100
+    k_max = 169
+    k_usual = 120
+    hs_min = 110
+    hs_max = 184
+    hs_average = round((hs_min + hs_max) / 2)
+
+
+# Data for huge hills
+class HugeHill:
+    name = "huge"
+    k_min = 170
+    k_max = 210
+    k_usual = 200
+    hs_min = 185
+    hs_max = 220
+    hs_average = round((hs_min + hs_max) / 2)
+
+
+# Hill sizes
+SIZES = (SmallHill.name, MediumHill.name, NormalHill.name, BigHill.name, HugeHill.name)
 
 COUNTRIES = dict(country_list.countries_for_language("en"))
 # MAIN_COUNTRIES uses COUNTRIES data, with the same formatting.
