@@ -22,6 +22,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
 
+import random
+
 from . import hills_constants as hc
 
 
@@ -35,6 +37,12 @@ class Hill:
         self._normalize()
 
     def _normalize(self):
+        if not self._country_exists():
+            self.country = random.choice(list(hc.MAIN_COUNTRIES.values()))
+        # Package for choosing city in specific country would help...
+        if not self.city:
+            self.city = "Unknown city"
+        # Below: check hill size and k-point.
         if self.size not in hc.SIZES:
             self.size = hc.BIG_NAME  # Create a big hill by default.
         if self.size == hc.SMALL_NAME:
@@ -82,3 +90,9 @@ class Hill:
                 self.hs = hc.HUGE_HS_MIN
             elif self.hs > hc.HUGE_HS_MAX:
                 self.hs = hc.HUGE_HS_MAX
+
+    def _country_exists(self):
+        for _, v in hc.COUNTRIES:
+            if self.country == v:
+                return True
+        return False

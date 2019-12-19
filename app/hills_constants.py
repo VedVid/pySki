@@ -22,6 +22,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
 
+import country_list
+
+
 # Data for small hills
 SMALL_NAME = "small"
 SMALL_K_MIN = 20
@@ -59,3 +62,16 @@ HUGE_HS_MIN = 185
 HUGE_HS_MAX = 220
 
 SIZES = (SMALL_NAME, MEDIUM_NAME, NORMAL_NAME, BIG_NAME, HUGE_NAME)
+
+COUNTRIES = dict(country_list.countries_for_language("en"))
+# MAIN_COUNTRIES uses COUNTRIES data, with the same formatting.
+MAIN_COUNTRIES = {
+    "AT": "Austria",
+    "CH": "Switzerland",
+    "CZ": "Czechia",
+    "DE": "Germany",
+    "FI": "Finland",
+    "NO": "Norway",
+    "PL": "Poland",
+    "SI": "Slovenia",
+}
