@@ -81,6 +81,8 @@ class Hill:
         return lengths
 
     def generate_jumps_weighted_list(self, jumps=None):
+        # This function creates dictionary
+        # with weights as keys and jump lengths as values.
         if jumps is None:
             jumps = self.generate_jump_lengths()
         average = statistics.mean(jumps)
@@ -93,5 +95,5 @@ class Hill:
             elif i > average:
                 factor -= 2
             weight += factor
-            weights[i] = weight
+            weights[weight] = i
         return weights

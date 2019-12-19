@@ -40,15 +40,14 @@ class Tournament:
     def generate_jumps(self):
         jumps = []
         distances = self.hill.generate_jumps_weighted_list()
+        for i in range(len(self.jumpers)):
+            jumps.append(self._choose_jump(distances))
+        jumps.sort()
+        return jumps
 
-    def _choose_jump(self, jumps):
-        # TODO:
-        # It is very naive approach and should be changed.
-        # Maybe just swap keys with values?
-        chances = list(jumps.values())
-        lengths = list(jumps.keys())
+    @staticmethod
+    def _choose_jump(distances):
+        chances = list(distances.keys())
         chance = random.randint(min(chances), max(chances))
-        chance_chosen = min(chances, key=lambda x: abs(x-chance))
-        for l, ch in jumps.items():
-            if ch == chance_chosen:
-                return l
+        chosen_chance = min(chances, key=lambda x: abs(x - chance))
+        return distances[chosen_chance]
