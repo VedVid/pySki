@@ -29,6 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 
+import random
+
 from . import jumpers_constants as jc
 
 
@@ -105,3 +107,27 @@ class Jumper:
             self.weight -= 1
             if self.bmi() <= jc.BMI_MAX_MAX:
                 break
+
+    def calculate_length_score(self):
+        inrun_score = round(
+            (self.inrun + random.randint(jc.SKILL_MIN, self.inrun) + random.randint(jc.SKILL_MIN, jc.SKILL_MAX)) / 2
+        )
+        takeoff_score = round(
+            (self.takeoff + random.randint(jc.SKILL_MIN, self.takeoff) + random.randint(jc.SKILL_MIN, jc.SKILL_MAX)) *
+            1.5
+        )
+        flight_score = round(
+            (self.flight + random.randint(jc.SKILL_MIN, self.flight) + random.randint(jc.SKILL_MIN, jc.SKILL_MAX)) *
+            1.25
+        )
+        landing_score = round(
+            (self.landing + random.randint(jc.SKILL_MIN, self.landing) + random.randint(jc.SKILL_MIN, jc.SKILL_MAX)) / 3
+        )
+        mental_score = round(
+            (self.mental + random.randint(jc.SKILL_MIN, self.mental) + random.randint(jc.SKILL_MIN, jc.SKILL_MAX)) / 2
+        )
+        form_score = round(
+            (self.form + random.randint(jc.SKILL_MIN, self.form) + random.randint(jc.SKILL_MIN, jc.SKILL_MAX)) / 2
+        )
+        final_score = inrun_score + takeoff_score + flight_score + landing_score + mental_score + form_score
+        return final_score
