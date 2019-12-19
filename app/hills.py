@@ -32,6 +32,7 @@ class Hill:
         self.size = size
         self.k = k
         self.hs = hs
+        self._normalize()
 
     def _normalize(self):
         if self.size not in hc.SIZES:
