@@ -30,6 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 import random
+import statistics
 
 from . import hills_constants as hc
 from . import jump_generation_constants as jgc
@@ -42,6 +43,7 @@ class Hill:
         self.size = size
         self.k = k
         self.hs = hs
+        self._hs_factor = 1.0  # Percentage of average hs.
         self._normalize()
 
     def _normalize(self):
@@ -50,54 +52,19 @@ class Hill:
         # Package for choosing city in specific country would help...
         if not self.city:
             self.city = "Unknown city"
+        if self.size not in list(hc.HILLS.keys()):
+            self.size = hc.BigHill.name  # Create a big hill by default.
         # Below: check hill size and k-point.
-        if self.size not in hc.SIZES:
-            self.size = hc.BIG_NAME  # Create a big hill by default.
-        if self.size == hc.SMALL_NAME:
-            if self.k < hc.SMALL_K_MIN:
-                self.k = hc.SMALL_K_MIN
-            elif self.k > hc.SMALL_K_MAX:
-                self.k = hc.SMALL_K_MAX
-            if self.hs < hc.SMALL_HS_MIN:
-                self.hs = hc.SMALL_HS_MIN
-            elif self.hs > hc.SMALL_HS_MAX:
-                self.hs = hc.SMALL_HS_MAX
-        elif self.size == hc.MEDIUM_NAME:
-            if self.k < hc.MEDIUM_K_MIN:
-                self.k = hc.MEDIUM_K_MIN
-            elif self.k > hc.MEDIUM_K_MAX:
-                self.k = hc.MEDIUM_K_MAX
-            if self.hs < hc.MEDIUM_HS_MIN:
-                self.hs = hc.MEDIUM_HS_MIN
-            elif self.hs > hc.MEDIUM_HS_MAX:
-                self.hs = hc.MEDIUM_HS_MAX
-        elif self.size == hc.NORMAL_NAME:
-            if self.k < hc.NORMAL_K_MIN:
-                self.k = hc.NORMAL_K_MIN
-            elif self.k > hc.NORMAL_K_MAX:
-                self.k = hc.NORMAL_K_MAX
-            if self.hs < hc.NORMAL_HS_MIN:
-                self.hs = hc.NORMAL_HS_MIN
-            elif self.hs > hc.NORMAL_HS_MAX:
-                self.hs = hc.NORMAL_HS_MAX
-        elif self.size == hc.BIG_NAME:
-            if self.k < hc.BIG_K_MIN:
-                self.k = hc.BIG_K_MIN
-            elif self.k > hc.BIG_K_MAX:
-                self.k = hc.BIG_K_MAX
-            if self.hs < hc.BIG_HS_MIN:
-                self.hs = hc.BIG_HS_MIN
-            elif self.hs > hc.BIG_HS_MAX:
-                self.hs = hc.BIG_HS_MAX
-        elif self.size == hc.HUGE_NAME:
-            if self.k < hc.HUGE_K_MIN:
-                self.k = hc.HUGE_K_MIN
-            elif self.k > hc.HUGE_K_MAX:
-                self.k = hc.HUGE_K_MAX
-            if self.hs < hc.HUGE_HS_MIN:
-                self.hs = hc.HUGE_HS_MIN
-            elif self.hs > hc.HUGE_HS_MAX:
-                self.hs = hc.HUGE_HS_MAX
+        if self.k < hc.HILLS[self.size].k_min:
+            self.k = hc.HILLS[self.size].k.min
+        elif self.k > hc.HILLS[self.size].k_max:
+            self.k = hc.HILLS[self.size].k_max
+        if self.hs < hc.HILLS[self.size].hs_min:
+            self.hs = hc.HILLS[self.size].hs_min
+        elif self.hs > hc.HILLS[self.size].hs_max:
+            self.hs = hc.HILLS[self.size].hs_max
+        # Find out if the hill's hs is smaller or bigger than average hs.
+        self._hs_factor = round(self.hs / hc.HILLS[self.size].hs_average)
 
     def _country_exists(self):
         for _, v in hc.COUNTRIES:
@@ -105,7 +72,23 @@ class Hill:
                 return True
         return False
 
-    def generate_jumps(self):
-        lmin = round((self.k / 100) * jgc.JUMP_LEN_MIN_PC) * ()
-        lmax = round((self.k / 100) * jgc.JUMP_LEN_MAX_PC)
+    def generate_jump_lengths(self):
+        # Generates every possible jump length in specified range,
+        # using hill size factor.
+        lmin = round(((self.k / 100) * jgc.JUMP_LEN_MIN_PC) * self._hs_factor)
+        lmax = round(((self.k / 100) * jgc.JUMP_LEN_MAX_PC) * self._hs_factor)
         lengths = [l for l in range(lmin, lmax)]
+        return lengths
+
+    @staticmethod
+    def generate_jumps(jumps):
+        average = statistics.mean(jumps)
+        weights = {}
+        factor = 2
+        for i in jumps:
+            if i < average:
+                factor += 2
+            elif i > average:
+                factor -= 2
+            weights[i] = factor
+        return weights
