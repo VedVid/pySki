@@ -36,7 +36,7 @@ class Tournament:
     def __init__(self, hill, jumpers):
         self.hill = hill
         self.jumpers = jumpers
-        self.qualifications = self._generate_qualifications()
+        self.qualifications = {}
 
     def generate_jumps(self):
         # Generates list of jump lengths, using weighted list from hill.
@@ -55,15 +55,6 @@ class Tournament:
         chosen_chance = min(chances, key=lambda x: abs(x - chance))
         return distances[chosen_chance]
 
-    def _generate_qualifications(self):
-        # Generates nearly-empty dictionary:
-        # just jumpers as keys,
-        # all with generic "0" value in place of jumps.
-        qualifications = {}
-        for j in self.jumpers:
-            qualifications[j] = 0
-        return qualifications
-
     @staticmethod
     def simulate_jumpers(jumpers):
         # This method calculates the score
@@ -72,5 +63,12 @@ class Tournament:
         scores = []
         for jumper in jumpers:
             scores.append([jumper, jumper.calculate_length_score()])
-        scores = sorted(scores, key=lambda l: l[1])
+        scores = sorted(scores, key=lambda l: l[1], reverse=True)
         return scores
+
+    def simulate_qualifications(self):
+        scores = self.simulate_jumpers(self.jumpers)
+        for i in scores:
+            j = i[0]
+            l = i[1]
+            self.qualifications[j] = l
