@@ -30,6 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 import random
+import statistics
 
 from . import hills_constants as hc
 from . import jump_generation_constants as jgc
@@ -71,9 +72,23 @@ class Hill:
                 return True
         return False
 
-    def generate_jumps(self):
+    def generate_jump_lengths(self):
         # Generates every possible jump length in specified range,
         # using hill size factor.
         lmin = round(((self.k / 100) * jgc.JUMP_LEN_MIN_PC) * self._hs_factor)
         lmax = round(((self.k / 100) * jgc.JUMP_LEN_MAX_PC) * self._hs_factor)
-        return [l for l in range(lmin, lmax)]
+        lengths = [l for l in range(lmin, lmax)]
+        return lengths
+
+    @staticmethod
+    def generate_jumps(jumps):
+        average = statistics.mean(jumps)
+        weights = {}
+        factor = 2
+        for i in jumps:
+            if i < average:
+                factor += 2
+            elif i > average:
+                factor -= 2
+            weights[i] = factor
+        return weights
