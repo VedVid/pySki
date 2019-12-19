@@ -42,7 +42,7 @@ class Tournament:
         # Generates list of jump lengths, using weighted list from hill.
         jumps = []
         distances = self.hill.generate_jumps_weighted_list()
-        for _ in self.qualifications:
+        for _ in self.jumpers:
             jumps.append(self._choose_jump(distances))
         jumps.sort()
         return jumps
