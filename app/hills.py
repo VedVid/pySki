@@ -52,52 +52,52 @@ class Hill:
             self.city = "Unknown city"
         # Below: check hill size and k-point.
         if self.size not in hc.SIZES:
-            self.size = hc.BIG_NAME  # Create a big hill by default.
-        if self.size == hc.SMALL_NAME:
-            if self.k < hc.SMALL_K_MIN:
-                self.k = hc.SMALL_K_MIN
-            elif self.k > hc.SMALL_K_MAX:
-                self.k = hc.SMALL_K_MAX
-            if self.hs < hc.SMALL_HS_MIN:
-                self.hs = hc.SMALL_HS_MIN
-            elif self.hs > hc.SMALL_HS_MAX:
-                self.hs = hc.SMALL_HS_MAX
-        elif self.size == hc.MEDIUM_NAME:
-            if self.k < hc.MEDIUM_K_MIN:
-                self.k = hc.MEDIUM_K_MIN
-            elif self.k > hc.MEDIUM_K_MAX:
-                self.k = hc.MEDIUM_K_MAX
-            if self.hs < hc.MEDIUM_HS_MIN:
-                self.hs = hc.MEDIUM_HS_MIN
-            elif self.hs > hc.MEDIUM_HS_MAX:
-                self.hs = hc.MEDIUM_HS_MAX
-        elif self.size == hc.NORMAL_NAME:
-            if self.k < hc.NORMAL_K_MIN:
-                self.k = hc.NORMAL_K_MIN
-            elif self.k > hc.NORMAL_K_MAX:
-                self.k = hc.NORMAL_K_MAX
-            if self.hs < hc.NORMAL_HS_MIN:
-                self.hs = hc.NORMAL_HS_MIN
-            elif self.hs > hc.NORMAL_HS_MAX:
-                self.hs = hc.NORMAL_HS_MAX
-        elif self.size == hc.BIG_NAME:
-            if self.k < hc.BIG_K_MIN:
-                self.k = hc.BIG_K_MIN
-            elif self.k > hc.BIG_K_MAX:
-                self.k = hc.BIG_K_MAX
-            if self.hs < hc.BIG_HS_MIN:
-                self.hs = hc.BIG_HS_MIN
-            elif self.hs > hc.BIG_HS_MAX:
-                self.hs = hc.BIG_HS_MAX
-        elif self.size == hc.HUGE_NAME:
-            if self.k < hc.HUGE_K_MIN:
-                self.k = hc.HUGE_K_MIN
-            elif self.k > hc.HUGE_K_MAX:
-                self.k = hc.HUGE_K_MAX
-            if self.hs < hc.HUGE_HS_MIN:
-                self.hs = hc.HUGE_HS_MIN
-            elif self.hs > hc.HUGE_HS_MAX:
-                self.hs = hc.HUGE_HS_MAX
+            self.size = hc.BigHill.name  # Create a big hill by default.
+        if self.size == hc.SmallHill.name:
+            if self.k < hc.SmallHill.k_min:
+                self.k = hc.SmallHill.k_min
+            elif self.k > hc.SmallHill.k_max:
+                self.k = hc.SmallHill.k_max
+            if self.hs < hc.SmallHill.hs_min:
+                self.hs = hc.SmallHill.hs_min
+            elif self.hs > hc.SmallHill.hs_max:
+                self.hs = hc.SmallHill.hs_max
+        elif self.size == hc.MediumHill.name:
+            if self.k < hc.MediumHill.k_min:
+                self.k = hc.MediumHill.k_min
+            elif self.k > hc.MediumHill.k_max:
+                self.k = hc.MediumHill.k_max
+            if self.hs < hc.MediumHill.hs_min:
+                self.hs = hc.MediumHill.hs_min
+            elif self.hs > hc.MediumHill.hs_max:
+                self.hs = hc.MediumHill.hs_max
+        elif self.size == hc.NormalHill.name:
+            if self.k < hc.NormalHill.k_min:
+                self.k = hc.NormalHill.k_min
+            elif self.k > hc.NormalHill.k_max:
+                self.k = hc.NormalHill.k_max
+            if self.hs < hc.NormalHill.hs_min:
+                self.hs = hc.NormalHill.hs_min
+            elif self.hs > hc.NormalHill.hs_max:
+                self.hs = hc.NormalHill.hs_max
+        elif self.size == hc.BigHill.name:
+            if self.k < hc.BigHill.k_min:
+                self.k = hc.BigHill.k_min
+            elif self.k > hc.BigHill.k_max:
+                self.k = hc.BigHill.k_max
+            if self.hs < hc.BigHill.hs_min:
+                self.hs = hc.BigHill.hs_min
+            elif self.hs > hc.BigHill.hs_max:
+                self.hs = hc.BigHill.hs_max
+        elif self.size == hc.HugeHill.name:
+            if self.k < hc.HugeHill.k_min:
+                self.k = hc.HugeHill.k_min
+            elif self.k > hc.HugeHill.k_max:
+                self.k = hc.HugeHill.k_max
+            if self.hs < hc.HugeHill.hs_min:
+                self.hs = hc.HugeHill.hs_min
+            elif self.hs > hc.HugeHill.hs_max:
+                self.hs = hc.HugeHill.hs_max
 
     def _country_exists(self):
         for _, v in hc.COUNTRIES:
