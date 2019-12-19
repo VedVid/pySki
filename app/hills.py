@@ -72,6 +72,8 @@ class Hill:
         return False
 
     def generate_jumps(self):
+        # Generates every possible jump length in specified range,
+        # using hill size factor.
         lmin = round(((self.k / 100) * jgc.JUMP_LEN_MIN_PC) * self._hs_factor)
         lmax = round(((self.k / 100) * jgc.JUMP_LEN_MAX_PC) * self._hs_factor)
         return [l for l in range(lmin, lmax)]
