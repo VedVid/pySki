@@ -80,15 +80,18 @@ class Hill:
         lengths = [l for l in range(lmin, lmax)]
         return lengths
 
-    @staticmethod
-    def generate_jumps(jumps):
+    def generate_jumps_weighted_list(self, jumps=None):
+        if jumps is None:
+            jumps = self.generate_jump_lengths()
         average = statistics.mean(jumps)
         weights = {}
         factor = 2
+        weight = factor
         for i in jumps:
             if i < average:
                 factor += 2
             elif i > average:
                 factor -= 2
-            weights[i] = factor
+            weight += factor
+            weights[i] = weight
         return weights
