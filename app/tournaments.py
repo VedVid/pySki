@@ -36,11 +36,12 @@ class Tournament:
     def __init__(self, hill, jumpers):
         self.hill = hill
         self.jumpers = jumpers
+        self.qualifications = self._generate_qualifications()
 
     def generate_jumps(self):
         jumps = []
         distances = self.hill.generate_jumps_weighted_list()
-        for i in range(len(self.jumpers)):
+        for _ in self.qualifications:
             jumps.append(self._choose_jump(distances))
         jumps.sort()
         return jumps
@@ -51,3 +52,9 @@ class Tournament:
         chance = random.randint(min(chances), max(chances))
         chosen_chance = min(chances, key=lambda x: abs(x - chance))
         return distances[chosen_chance]
+
+    def _generate_qualifications(self):
+        qualifications = {}
+        for j in self.jumpers:
+            qualifications[j] = 0
+        return qualifications
