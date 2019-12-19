@@ -42,6 +42,7 @@ class Hill:
         self.size = size
         self.k = k
         self.hs = hs
+        self._hs_factor = 1.0  # Percentage of average hs.
         self._normalize()
 
     def _normalize(self):
@@ -62,6 +63,8 @@ class Hill:
                 self.hs = hc.SmallHill.hs_min
             elif self.hs > hc.SmallHill.hs_max:
                 self.hs = hc.SmallHill.hs_max
+            # Find out if the hill's hs is smaller or bigger than average hs.
+            self._hs_factor = round(self.hs / hc.SmallHill.hs_average)
         elif self.size == hc.MediumHill.name:
             if self.k < hc.MediumHill.k_min:
                 self.k = hc.MediumHill.k_min
@@ -71,6 +74,8 @@ class Hill:
                 self.hs = hc.MediumHill.hs_min
             elif self.hs > hc.MediumHill.hs_max:
                 self.hs = hc.MediumHill.hs_max
+            # Find out if the hill's hs is smaller or bigger than average hs.
+            self._hs_factor = round(self.hs / hc.MediumHill.hs_average)
         elif self.size == hc.NormalHill.name:
             if self.k < hc.NormalHill.k_min:
                 self.k = hc.NormalHill.k_min
@@ -80,6 +85,8 @@ class Hill:
                 self.hs = hc.NormalHill.hs_min
             elif self.hs > hc.NormalHill.hs_max:
                 self.hs = hc.NormalHill.hs_max
+            # Find out if the hill's hs is smaller or bigger than average hs.
+            self._hs_factor = round(self.hs / hc.NormalHill.hs_average)
         elif self.size == hc.BigHill.name:
             if self.k < hc.BigHill.k_min:
                 self.k = hc.BigHill.k_min
@@ -89,6 +96,8 @@ class Hill:
                 self.hs = hc.BigHill.hs_min
             elif self.hs > hc.BigHill.hs_max:
                 self.hs = hc.BigHill.hs_max
+            # Find out if the hill's hs is smaller or bigger than average hs.
+            self._hs_factor = round(self.hs / hc.BigHill.hs_average)
         elif self.size == hc.HugeHill.name:
             if self.k < hc.HugeHill.k_min:
                 self.k = hc.HugeHill.k_min
@@ -98,6 +107,8 @@ class Hill:
                 self.hs = hc.HugeHill.hs_min
             elif self.hs > hc.HugeHill.hs_max:
                 self.hs = hc.HugeHill.hs_max
+            # Find out if the hill's hs is smaller or bigger than average hs.
+            self._hs_factor = round(self.hs / hc.HugeHill.hs_average)
 
     def _country_exists(self):
         for _, v in hc.COUNTRIES:
@@ -106,6 +117,6 @@ class Hill:
         return False
 
     def generate_jumps(self):
-        lmin = round((self.k / 100) * jgc.JUMP_LEN_MIN_PC) * ()
-        lmax = round((self.k / 100) * jgc.JUMP_LEN_MAX_PC)
-        lengths = [l for l in range(lmin, lmax)]
+        lmin = round(((self.k / 100) * jgc.JUMP_LEN_MIN_PC) * self._hs_factor)
+        lmax = round(((self.k / 100) * jgc.JUMP_LEN_MAX_PC) * self._hs_factor)
+        return [l for l in range(lmin, lmax)]
