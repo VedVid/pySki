@@ -36,7 +36,7 @@ class Tournament:
     def __init__(self, hill, jumpers):
         self.hill = hill
         self.jumpers = jumpers
-        self.qualifications = {}
+        self.qualifications = []
 
     def generate_jumps(self):
         # Generates list of jump lengths, using weighted list from hill.
@@ -70,6 +70,6 @@ class Tournament:
         scores = self.simulate_jumpers(self.jumpers)
         jumps = self.generate_jumps()
         for i, score in enumerate(scores):
-            j = score[0]
-            l = (score[1], jumps[i])
-            self.qualifications[j] = l
+            # self.qualifications.append(Jumper, jumper-arbitrary-score, jump length)
+            self.qualifications.append((score[0], score[1], jumps[i]))
+        self.qualifications = sorted(self.qualifications, key=lambda l: l[2], reverse=True)
