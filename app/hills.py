@@ -55,9 +55,9 @@ class Hill:
             return jgc.ALL_JUMP_K_POINTS
 
     def _find_points_per_m(self):
-        for k, v in jgc.SCORES_FOR_METER:
-            if k[1] > self.k >= k[0]:
-                return v
+        for f, l in jgc.SCORES_FOR_METER:
+            if self.k >= f and self.k <= l:
+                return jgc.SCORES_FOR_METER[(f, l)]
         return -1  # Error.
 
     def _normalize(self):
