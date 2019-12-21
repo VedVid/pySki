@@ -67,7 +67,7 @@ class Tournament:
         return scores
 
     def length_to_points(self, jump):
-        return self.hill.points_per_k + (self.hill.points_per_m * (jump - self.hill.k))
+        return round(self.hill.points_per_k + (self.hill.points_per_m * (jump - self.hill.k)), 1)
 
     def simulate_qualifications(self):
         scores = self.simulate_jumpers(self.jumpers)
