@@ -32,3 +32,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # Data for calculating jumps (in percentage)
 JUMP_LEN_MIN_PC = 85
 JUMP_LEN_MAX_PC = 113
+
+# Data for calculating score for jump length.
+ALL_JUMP_K_POINTS = 60
+HUGE_JUMP_K_POINTS = 120
+SCORES_FOR_METER = {
+    (0, 19): 0,
+    (20, 25): 4.8,
+    (26, 30): 4.4,
+    (30, 34): 4.0,
+    (35, 39): 3.6,
+    (40, 49): 3.2,
+    (50, 59): 2.8,
+    (60, 69): 2.4,
+    (70, 79): 2.2,
+    (80, 99): 2.0,
+    (100, 169): 1.8,
+    (170, 999): 1.2,
+}

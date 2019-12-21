@@ -44,7 +44,21 @@ class Hill:
         self.k = k
         self.hs = hs
         self._hs_factor = 1.0  # Percentage of average hs.
+        self.points_per_k = self._find_points_per_k()
+        self.points_per_m = self._find_points_per_m()
         self._normalize()
+
+    def _find_points_per_k(self):
+        if self.k >= 170:
+            return jgc.HUGE_JUMP_K_POINTS
+        else:
+            return jgc.ALL_JUMP_K_POINTS
+
+    def _find_points_per_m(self):
+        for k, v in jgc.SCORES_FOR_METER:
+            if k[1] > self.k >= k[0]:
+                return v
+        return -1  # Error.
 
     def _normalize(self):
         if not self._country_exists():
