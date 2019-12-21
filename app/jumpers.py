@@ -108,7 +108,7 @@ class Jumper:
             if self.bmi() <= jc.BMI_MAX_MAX:
                 break
 
-    def calculate_length_score(self):
+    def calculate_relative_score(self):
         inrun_score = round(
             (self.inrun + random.randint(jc.SKILL_MIN, self.inrun) + random.randint(jc.SKILL_MIN, jc.SKILL_MAX)) / 2
         )

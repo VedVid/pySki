@@ -62,7 +62,7 @@ class Tournament:
         # of every jumper and sorts the list.
         scores = []
         for jumper in jumpers:
-            scores.append([jumper, jumper.calculate_length_score()])
+            scores.append([jumper, jumper.calculate_relative_score()])
         scores = sorted(scores, key=lambda l: l[1])
         return scores
 
