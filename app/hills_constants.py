@@ -73,7 +73,7 @@ class BigHill:
     k_usual = 120
     hs_min = 110
     hs_max = 184
-    hs_average = round((hs_min + hs_max) / 2)
+    hs_average = 136  # Arbitrary value chosen after checking HS of various K110-K130 hills.
 
 
 # Data for huge hills
