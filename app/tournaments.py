@@ -66,10 +66,13 @@ class Tournament:
         scores = sorted(scores, key=lambda l: l[1])
         return scores
 
+    def length_to_points(self, jump):
+        return self.hill.points_per_k + (self.hill.points_per_m * (jump - self.hill.k))
+
     def simulate_qualifications(self):
         scores = self.simulate_jumpers(self.jumpers)
         jumps = self.generate_jumps()
         for i, score in enumerate(scores):
-            # self.qualifications.append(Jumper, jumper-arbitrary-score, jump length)
-            self.qualifications.append((score[0], score[1], jumps[i]))
+            # self.qualifications.append(Jumper, jumper-arbitrary-score, jump length, length score)
+            self.qualifications.append((score[0], score[1], jumps[i], self.length_to_points(jumps[i])))
         self.qualifications = sorted(self.qualifications, key=lambda l: l[2], reverse=True)
