@@ -47,7 +47,7 @@ class Tournament:
         distances = self.hill.generate_jumps_weighted_list()
         for _ in self.jumpers:
             jumps_l.append(self._choose_jump(distances))
-        jumps_l.sort()
+        jumps_l = sorted(jumps_l, key=lambda l: l.length_score)
         return jumps_l
 
     def _choose_jump(self, distances):
@@ -77,7 +77,6 @@ class Tournament:
         scores = self.simulate_jumpers(self.jumpers)
         jumps_l = self.generate_jumps()
         for i, score in enumerate(scores):
-            jump = jumps.Jump(jumps_l[i], self.length_to_points(jumps_l[i]))
             # self.qualifications.append(Jumper, jumper-arbitrary-score, Jump)
-            self.qualifications.append((score[0], score[1], jump))
+            self.qualifications.append((score[0], score[1], jumps_l[i]))
         self.qualifications = sorted(self.qualifications, key=lambda l: l[2].length_score, reverse=True)
