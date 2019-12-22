@@ -50,13 +50,14 @@ class Tournament:
         jumps_l.sort()
         return jumps_l
 
-    @staticmethod
-    def _choose_jump(distances):
+    def _choose_jump(self, distances):
         # Chooses one length from all jumps.
         chances = list(distances.keys())
         chance = random.randint(min(chances), max(chances))
         chosen_chance = min(chances, key=lambda x: abs(x - chance))
-        return distances[chosen_chance]
+        chosen_distance = distances[chosen_chance]
+        jump = jumps.Jump(chosen_distance, self.length_to_points(chosen_distance))
+        return jump
 
     @staticmethod
     def simulate_jumpers(jumpers):
