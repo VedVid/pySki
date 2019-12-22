@@ -30,7 +30,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 class Jump:
-    def __init__(self, length, length_score, wind):
+    def __init__(self, length, length_score):
         self.length = length
         self.length_score = length_score
-        self.wind = wind
