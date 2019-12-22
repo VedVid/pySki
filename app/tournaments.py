@@ -76,6 +76,7 @@ class Tournament:
         scores = self.simulate_jumpers(self.jumpers)
         jumps_l = self.generate_jumps()
         for i, score in enumerate(scores):
-            # self.qualifications.append(Jumper, jumper-arbitrary-score, jump length, length score)
-            self.qualifications.append((score[0], score[1], jumps_l[i], self.length_to_points(jumps_l[i])))
-        self.qualifications = sorted(self.qualifications, key=lambda l: l[2], reverse=True)
+            jump = jumps.Jump(jumps_l[i], self.length_to_points(jumps_l[i]))
+            # self.qualifications.append(Jumper, jumper-arbitrary-score, Jump)
+            self.qualifications.append((score[0], score[1], jump))
+        self.qualifications = sorted(self.qualifications, key=lambda l: l[2].length_score, reverse=True)
