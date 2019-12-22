@@ -33,9 +33,10 @@ import random
 
 
 class Tournament:
-    def __init__(self, hill, jumpers):
+    def __init__(self, hill, jumpers, wind):
         self.hill = hill
         self.jumpers = jumpers
+        self.wind = wind
         self.qualifications = []
 
     def generate_jumps(self):
