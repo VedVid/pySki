@@ -32,6 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import random
 
 from . import jumps
+from . import winds
 
 
 class Tournament:
@@ -45,9 +46,13 @@ class Tournament:
         # Generates list of jump lengths, using weighted list from hill.
         jumps_l = []
         distances = self.hill.generate_jumps_weighted_list()
+        wind = winds.Wind()
         for _ in self.jumpers:
-            jumps_l.append(self._choose_jump(distances))
-        jumps_l.sort()
+            wind.update_wind()
+            length = self._choose_jump(distances)
+            jump = jumps.Jump(length, self.length_to_points(length), wind.current_wind)
+            jumps_l.append(jump)
+        jumps_l = sorted(jumps_l, key=lambda l: l.length_score)
         return jumps_l
 
     @staticmethod
