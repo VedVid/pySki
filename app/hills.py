@@ -95,16 +95,16 @@ class Hill:
         print(lmin, lmax)
         return lengths
 
-    def generate_jumps_weighted_list(self, jumps=None):
+    def generate_jumps_weighted_list(self, jump_lengths=None):
         # This function creates dictionary
         # with weights as keys and jump lengths as values.
-        if jumps is None:
-            jumps = self.generate_jump_lengths()
-        average = statistics.mean(jumps)
+        if jump_lengths is None:
+            jump_lengths = self.generate_jump_lengths()
+        average = statistics.mean(jump_lengths)
         weights = {}
         factor = 2
         weight = factor
-        for i in jumps:
+        for i in jump_lengths:
             if i < average:
                 factor += 4
             elif i > average:
