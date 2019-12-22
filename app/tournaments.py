@@ -31,6 +31,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import random
 
+from . import jumps
+
 
 class Tournament:
     def __init__(self, hill, jumpers, wind):
@@ -41,12 +43,12 @@ class Tournament:
 
     def generate_jumps(self):
         # Generates list of jump lengths, using weighted list from hill.
-        jumps = []
+        jumps_l = []
         distances = self.hill.generate_jumps_weighted_list()
         for _ in self.jumpers:
-            jumps.append(self._choose_jump(distances))
-        jumps.sort()
-        return jumps
+            jumps_l.append(self._choose_jump(distances))
+        jumps_l.sort()
+        return jumps_l
 
     @staticmethod
     def _choose_jump(distances):
@@ -72,8 +74,9 @@ class Tournament:
 
     def simulate_qualifications(self):
         scores = self.simulate_jumpers(self.jumpers)
-        jumps = self.generate_jumps()
+        jumps_l = self.generate_jumps()
         for i, score in enumerate(scores):
-            # self.qualifications.append(Jumper, jumper-arbitrary-score, jump length, length score)
-            self.qualifications.append((score[0], score[1], jumps[i], self.length_to_points(jumps[i])))
-        self.qualifications = sorted(self.qualifications, key=lambda l: l[2], reverse=True)
+            jump = jumps.Jump(jumps_l[i], self.length_to_points(jumps_l[i]))
+            # self.qualifications.append(Jumper, jumper-arbitrary-score, Jump)
+            self.qualifications.append((score[0], score[1], jump))
+        self.qualifications = sorted(self.qualifications, key=lambda l: l[2].length_score, reverse=True)
