@@ -92,6 +92,7 @@ class Hill:
         lmin = round(((self.k / 100) * jgc.JUMP_LEN_MIN_PC) * self._hs_factor)
         lmax = round(((self.k / 100) * jgc.JUMP_LEN_MAX_PC) * self._hs_factor)
         lengths = [l for l in range(lmin, lmax)]
+        print(lmin, lmax)
         return lengths
 
     def generate_jumps_weighted_list(self, jumps=None):
@@ -105,9 +106,9 @@ class Hill:
         weight = factor
         for i in jumps:
             if i < average:
-                factor += 2
+                factor += 4
             elif i > average:
-                factor -= 2
+                factor -= 4
             weight += factor
             weights[weight] = i
         return weights
